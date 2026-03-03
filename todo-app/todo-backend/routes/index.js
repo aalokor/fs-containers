@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const configs = require('../util/config');
-const { getAsync } = require('../redis');
+const { get } = require('../redis');
 
 let visits = 0;
 
@@ -19,9 +19,9 @@ router.get('/', async (req, res) => {
 router.get('/statistics', async (req, res) => {
   let addedTodos = 0;
 
-  if (getAsync) {
+  if (get) {
     try {
-      const count = await getAsync('addedTodos');
+      const count = await get('addedTodos');
       addedTodos = count ? parseInt(count) : 0;
     } catch (err) {
       console.error('Redis error:', err);

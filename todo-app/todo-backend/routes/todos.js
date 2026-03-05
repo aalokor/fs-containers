@@ -52,7 +52,9 @@ singleRouter.get('/', async (req, res) => {
 
 /* PUT todo. */
 singleRouter.put('/', async (req, res) => {
-  req.todo.done = true;
+  const { text, done } = req.body;
+  req.todo.text = text;
+  req.todo.done = done;
   await req.todo.save();
   res.json(req.todo);
 });
